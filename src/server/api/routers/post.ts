@@ -35,6 +35,13 @@ export const postRouter = createTRPCRouter({
       where: { createdBy: { id: ctx.session.user.id } },
     });
   }),
+  getRefresh: protectedProcedure.query(({ ctx }) => {
+    return ctx.db.account.findFirstOrThrow({
+      // orderBy: { createdAt: "desc" },
+      where: { userId: ctx.session.user.id },
+      select: { refresh_token: true, access_token: true },
+    });
+  }),
 
   getSecretMessage: protectedProcedure.query(() => {
     return "you can now see this secret message!";

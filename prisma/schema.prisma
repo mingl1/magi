@@ -53,15 +53,33 @@ model Session {
     user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
+// I want to add a connections field to users that is a list of the users' in game names across various games
+model Game {
+    id             String           @id @default(cuid())
+    name           String
+    GameConnection GameConnection[]
+}
+
+model GameConnection {
+    id       Int     @id @default(autoincrement())
+    user     User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+    userId   String
+    game     Game    @relation(fields: [gameId], references: [id], onDelete: Cascade)
+    gameId   String
+    username String
+    rank     String? // Optional
+}
+
 model User {
-    id            String    @id @default(cuid())
-    name          String?
-    email         String?   @unique
-    emailVerified DateTime?
-    image         String?
-    accounts      Account[]
-    sessions      Session[]
-    posts         Post[]
+    id              String           @id @default(cuid())
+    name            String?
+    email           String?          @unique
+    emailVerified   DateTime?
+    image           String?
+    accounts        Account[]
+    sessions        Session[]
+    posts           Post[]
+    gameConenctions GameConnection[]
 }
 
 model VerificationToken {
