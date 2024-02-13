@@ -46,6 +46,9 @@ export default async function Home() {
 }
 
 async function LeagueRank() {
+  const session = await getServerAuthSession();
+  if (!session?.user) return null;
+
   const refresh = await api.post.getRefresh.query();
   if (!refresh.access_token || !refresh.refresh_token) return null;
   const summonerStats = await api.connections.getConnections
