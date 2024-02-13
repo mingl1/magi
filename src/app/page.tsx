@@ -5,8 +5,8 @@ import Link from "next/link";
 import { CreatePost } from "~/app/_components/create-post";
 import { getServerAuthSession } from "~/server/auth";
 import { api } from "~/trpc/server";
-import { Connections } from "./_components/connections";
-import { SummonerStats } from "~/server/api/routers/connections";
+// import { Connections } from "./_components/connections";
+// import { SummonerStats } from "~/server/api/routers/connections";
 export default async function Home() {
   noStore();
   const hello = await api.post.hello.query({ text: "from tRPC" });
